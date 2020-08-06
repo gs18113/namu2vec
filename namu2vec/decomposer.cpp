@@ -50,6 +50,8 @@ inline void write_to_buf(unsigned char* out_buf, int &cur_out_buf_size, int &com
 	}
 }
 
+// parsing coe from https://stackoverflow.com/questions/17925051/fast-textfile-reading-in-c
+// To learn more about Korean Unicode characters, check https://d2.naver.com/helloworld/76650 and https://jybaek.tistory.com/790.
 static int decompose(char const *infile, char const *outfile) {
 	static const auto BUFFER_SIZE = 16*1024;
 	static const auto OUT_BUFFER_SIZE = 16*1024*3;
