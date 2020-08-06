@@ -41,6 +41,8 @@ if __name__ == "__main__":
             if args.txt_mode == 'sentence':
                 lines = line.split('.')
                 for _line in lines:
+                    if not _line:
+                        continue
                     tmp = outfile.write(_line)
                     tmp = outfile.write('\n')
             else:
