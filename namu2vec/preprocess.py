@@ -1,6 +1,7 @@
 import json
 import argparse
 from soynlp.hangle import decompose
+import re
 
 doublespace_pattern = re.compile('\s+')
 
