@@ -57,4 +57,7 @@ if __name__ == "__main__":
             line = data.readline()
             if not line: 
                 break
-            outfile.write(jamo_sentence(line))
+            _line = jamo_sentence(line)
+            if not _line:
+                continue
+            outfile.write(_line)
