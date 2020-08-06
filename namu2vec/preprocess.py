@@ -1,27 +1,8 @@
 import json
 import argparse
-from soynlp.hangle import decompose
-import re
+from multiprocessing import Pool
 
-doublespace_pattern = re.compile('\s+')
-
-# function imported from https://lovit.github.io/nlp/representation/2018/10/22/fasttext_subword/
-def jamo_sentence(sent):
-
-    def transform(char):
-        if char == ' ':
-            return char
-        cjj = decompose(char)
-        if not cjj:
-            return ''
-        if len(cjj) == 1:
-            return cjj
-        cjj_ = ''.join(c if c != ' ' else '-' for c in cjj)
-        return cjj_
-
-    sent_ = ''.join(transform(char) for char in sent)
-    sent_ = doublespace_pattern.sub(' ', sent_)
-    return sent_
+from utils import jamo_sentence
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
@@ -29,6 +10,7 @@ if __name__ == "__main__":
     parser.add_argument('--txt_mode', type=str, default='sentence', choices = ['sentence', 'article'], help='processed input type')
     parser.add_argument('--input_file', type=str, default='../raw_data/namuwiki.json', help='input file path')
     parser.add_argument('--output_file', type=str, default='../raw_data/processed.txt', help='output file path')
+    parser.add_argument('--n_cpus', type=int, default=4, help='multiprocessing cpu count')
     args = parser.parse_args()
     if args.mode == 'json2txt':
         print('opening file "' + args.input_file + '"...')
@@ -52,14 +34,13 @@ if __name__ == "__main__":
                 tmp = outfile.write('\n')
     else:
         print('opening file "' + args.input_file + '"...')
-        data = open(args.input_file)
+        data = open(args.input_file).readlines()
         print('successfully opened file "' + args.input_file + '"')
         outfile = open(args.output_file, 'w')
-        while True:
-            line = data.readline()
-            if not line: 
-                break
-            _line = jamo_sentence(line)
-            if not _line:
+        pool = Pool(args.n_cpus)
+        jamo = pool.map(jamo_sentence,  data)
+        for line in jamo:
+            if not line:
                 continue
-            outfile.write(_line)
+            outfile.write(line)
+            outfile.write('\n')
