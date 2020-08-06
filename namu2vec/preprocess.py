@@ -7,10 +7,10 @@ from utils import jamo_sentence
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument('--mode', type=str, required=True, choices = ['json2txt', 'decompose'], help='processing mode')
-    parser.add_argument('--txt_mode', type=str, default='sentence', choices = ['sentence', 'article'], help='processed input type')
+    parser.add_argument('--txt_mode', type=str, default='sentence', choices = ['sentence', 'article'], help='processed input type, used for json2txt')
     parser.add_argument('--input_file', type=str, default='../raw_data/namuwiki.json', help='input file path')
     parser.add_argument('--output_file', type=str, default='../raw_data/processed.txt', help='output file path')
-    parser.add_argument('--n_cpus', type=int, default=4, help='multiprocessing cpu count')
+    parser.add_argument('--n_cpus', type=int, default=4, help='multiprocessing cpu count, used for decomposing')
     args = parser.parse_args()
     if args.mode == 'json2txt':
         print('opening file "' + args.input_file + '"...')
