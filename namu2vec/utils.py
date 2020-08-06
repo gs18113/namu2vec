@@ -1,4 +1,4 @@
-from soynlp.hangle import decompose
+from hgtk.letter import decompose
 import re
 
 doublespace_pattern = re.compile('\s+')
