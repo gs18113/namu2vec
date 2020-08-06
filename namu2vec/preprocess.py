@@ -1,6 +1,7 @@
 import json
 import argparse
 from multiprocessing import Pool
+from tqdm import tqdm
 
 from utils import jamo_sentence
 
@@ -38,8 +39,7 @@ if __name__ == "__main__":
         print('successfully opened file "' + args.input_file + '"')
         outfile = open(args.output_file, 'w')
         pool = Pool(args.n_cpus)
-        jamo = pool.map(jamo_sentence,  data)
-        for line in jamo:
+        for line in tqdm(pool.imap_unordered(jamo_sentence,  data), total=len(data)):
             if not line:
                 continue
             outfile.write(line)
