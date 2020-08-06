@@ -38,9 +38,12 @@ inline void write_to_buf(unsigned char* out_buf, int &cur_out_buf_size, int &com
 		out_buf[cur_out_buf_size++] = (1<<7)+((jungsung_id&mask3));
 		
 		// jongsung
-		out_buf[cur_out_buf_size++] = (7<<5)+((jongsung_id&mask1)>>12);
-		out_buf[cur_out_buf_size++] = (1<<7)+((jongsung_id&mask2)>>6);
-		out_buf[cur_out_buf_size++] = (1<<7)+((jongsung_id&mask3));
+		if(jongsung_id == '-') out_buf[cur_out_buf_size++] = '-';
+		else{
+			out_buf[cur_out_buf_size++] = (7<<5)+((jongsung_id&mask1)>>12);
+			out_buf[cur_out_buf_size++] = (1<<7)+((jongsung_id&mask2)>>6);
+			out_buf[cur_out_buf_size++] = (1<<7)+((jongsung_id&mask3));
+		}
 	}
 	else if(complete_code == '\n'){
 		out_buf[cur_out_buf_size++] = '\n';
