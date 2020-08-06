@@ -12,6 +12,8 @@ def jamo_sentence(sent):
         if char == ' ':
             return char
         cjj = decompose(char)
+        if not cjj:
+            return ''
         if len(cjj) == 1:
             return cjj
         cjj_ = ''.join(c if c != ' ' else '-' for c in cjj)
