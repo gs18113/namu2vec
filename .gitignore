@@ -140,3 +140,4 @@ dmypy.json
 
 # project-specific files
 raw_data/*
+namu2vec/decomposer
