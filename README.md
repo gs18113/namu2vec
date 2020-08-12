@@ -16,6 +16,7 @@ python3 json2txt.py [--txt_mode TXT_MODE] [--input_file INPUT_FILE_PATH] [--outp
 * OUTPUT_FILE_PATH: 출력 파일 경로
 ## Decomposer
 한글을 자모로 분리하는 코드
+Python을 사용하고 싶었지만 파이썬 라이브러리 사용 시 전체 파싱에 1시간 이상이 걸리는 것을 확인하여 C++로 변경하였습니다.
 ```
 g++ decomposer.cpp -std=c++17 -o decomposer
 ./decomposer INPUT_FILE_PATH OUTPUT_FILE_PATH
